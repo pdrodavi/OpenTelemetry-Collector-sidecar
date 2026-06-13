@@ -6,13 +6,11 @@ receivers:
 
 exporters:
   logging:
-    loglevel: debug
+    verbosity: detailed
   otlp/jaeger:
     endpoint: jaeger:4317
     tls:
       insecure: true
-  prometheus:
-    endpoint: "0.0.0.0:8889"
 
 service:
   pipelines:
@@ -21,4 +19,4 @@ service:
       exporters: [otlp/jaeger, logging]
     metrics:
       receivers: [otlp]
-      exporters: [prometheus, logging]
+      exporters: [logging] # As métricas sairão no log do container
